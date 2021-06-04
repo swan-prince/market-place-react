@@ -1,0 +1,122 @@
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { useHistory } from 'react-router-dom';
+
+import { fetchUsers } from "redux/actions/admin/actUsers";
+
+import { AdminDropdownBtn } from "components/Dropdowns";
+import { AdminButton } from "components/Buttons";
+
+function Users({ setUsers }) {
+
+  const history = useHistory();
+  const [user_list, setUserList] = useState([]);
+
+  useEffect(()=> {
+    const users = fetchUsers();
+    setUserList(users.payload);
+    setUsers(users);
+  }, [])
+
+  const deleteHandle = () => {
+    console.log("delete function")
+  }
+
+  return (
+    <>
+      <div className="flex flex-wrap mt-4">
+        <div className="relative w-full mb-3 px-4 text-right">
+          {/* <button onClick={ () => history.push('/admin/user/create') } className="btn btn-primary btn-lg mr-2" role="button" aria-disabled="true">Add</button> */}
+          {/* <button className="btn btn-primary btn-lg" role="button" aria-disabled="true">Export</button> */}
+          <AdminButton text="Add" onClick={ () => history.push('/admin/user/create') } classes="mr-2" />
+          <AdminButton text="Export" onClick={ () => {} } />
+        </div>
+        <div className="w-full mb-12 px-4">
+          <div className="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded bg-white">
+            <div className="rounded-t mb-0 px-4 py-3 border-0">
+              <div className="flex flex-wrap items-center">
+                <div className="relative w-full px-4 max-w-full flex-grow flex-1">
+                  <h3
+                    className="font-semibold text-lg text-gray-800">
+                    User List
+                  </h3>
+                </div>
+              </div>
+            </div>
+            <div className="block w-full overflow-x-auto">
+              <table className="items-center w-full bg-transparent border-collapse">
+                <thead>
+                  <tr>
+                    <th className="px-6 align-middle border border-solid py-3 text-base uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-gray-100 text-gray-600 border-gray-200">
+                      no
+                    </th>
+                    <th
+                      className="px-6 align-middle border border-solid py-3 text-base uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-gray-100 text-gray-600 border-gray-200">
+                      Name
+                    </th>
+                    <th
+                      className="px-6 align-middle border border-solid py-3 text-base uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-gray-100 text-gray-600 border-gray-200">
+                      Email
+                    </th>
+                    <th
+                      className="px-6 align-middle border border-solid py-3 text-base uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-gray-100 text-gray-600 border-gray-200">
+                      Type
+                    </th>
+                    <th
+                      className="px-6 align-middle border border-solid py-3 text-base uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-gray-100 text-gray-600 border-gray-200">
+                      Status
+                    </th>
+                    <th
+                      className="px-6 align-middle border border-solid py-3 text-base uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-gray-100 text-gray-600 border-gray-200">
+                      Date registered
+                    </th>
+                    <th
+                      className="px-6 align-middle border border-solid py-3 text-base uppercase border-l-0 border-r-0 whitespace-no-wrap font-semibold text-left bg-gray-100 text-gray-600 border-gray-200"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    
+                    user_list.map((user, index) => 
+                      <tr key={ index }>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-no-wrap p-4">
+                          { index + 1 }
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-no-wrap p-4">
+                            { user.name }
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-no-wrap p-4">
+                          { user.email }
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-no-wrap p-4">
+                          { user.role }
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-no-wrap p-4">
+                          <span className={ "badge " + (user.status == "blocked" ? "badge-danger": "badge-success") }>{ user.status }</span>
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-no-wrap p-4">
+                          { user.created_at }
+                        </td>
+                        <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-base whitespace-no-wrap p-4 text-right">
+                          <AdminDropdownBtn editLink = { `/admin/user/${user.id}/edit` } deleteHandle={ deleteHandle } />
+                        </td>
+                      </tr>
+                    )
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUsers: (users) => dispatch(users)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(Users);

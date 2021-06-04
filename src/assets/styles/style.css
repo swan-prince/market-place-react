@@ -1,0 +1,106 @@
+input, select, textarea {
+	border: 1px solid #ddd;
+}
+.btn {
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn.focus, .btn:focus {
+	outline: 0;
+	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+.btn:not(:disabled):not(.disabled) {
+	cursor: pointer;
+}
+.btn-primary {
+	color: #fff;
+	background-color: #007bff;
+	border-color: #007bff;
+}
+.btn-primary.focus, .btn-primary:focus {
+	box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
+}
+.badge {
+	display: inline-block;
+	padding: .25em .4em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25rem;
+	padding-bottom: .3rem;
+}
+.badge-danger {
+	color: #fff;
+	background-color: #dc3545;
+}
+.badge-success {
+	color: #fff;
+	background-color: #28a745;
+}
+
+
+
+
+.d-none {
+	display: none !important;
+}
+.d-block {
+	display: block !important;
+}
+
+.pl-175-rem, .px-175-rem {
+	padding-left: 1.75rem;
+}
+
+.min-h-100-vh {
+	min-height: 100vh;
+}
+.text-white {
+	color: white;
+}
+.text-red-600 {
+	color: #e53e3e;
+}
+.text-green-500 {
+	color: #48bb78;
+}
+.text-color-1 {
+	color: rgba(255,255,255,.75);
+}
+
+.bg-color-1 {
+	background-color: #263238;
+}
+.bg-color-2 {
+	background-color: #f5f5f5;
+}
+
+/* customising react date-picker css */
+.react-date-picker__wrapper {
+	border: none !important;
+}
+.react-date-picker__inputGroup input:focus {
+	border: none !important;
+	outline: none !important;
+}
+
+.border-1 {
+	border: 1px solid #ced4da;
+}
+.btn-color-1 {
+	background-color: #ffbc00;
+	color: #211f1f
+}
